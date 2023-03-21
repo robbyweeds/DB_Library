@@ -3,8 +3,15 @@ import sqlite3
 import datetime
 import pandas as pd
 import numpy as np
-import openpyxl as xl
+from openpyxl import Workbook
 
+# **************CREATE EXCEL**************
+def create_excel():
+    conn = sqlite3.connect('newdb1', detect_types=sqlite3.PARSE_DECLTYPES)
+    surveys_df = pd.read_sql_query("SELECT * from books", conn)
+    surveys_df.to_excel('landscape_library_list.xlsx')
+
+    conn.close()
 
 # **************ORIGINAL CONNECTION**************
 # conn = dbconnect = sqlite3.connect('newdb1', detect_types=sqlite3.PARSE_DECLTYPES)
@@ -17,8 +24,8 @@ def createTable():
     table = '''
         CREATE TABLE books (
             title VARCHAR(100) NOT NULL,
-            fname VARCHAR(50),
-            lname VARCHAR(50),
+            first_name VARCHAR(50),
+            last_name VARCHAR(50),
             date DATE,
             cat VARCHAR(30)
         )'''
@@ -41,7 +48,7 @@ def alterTable():
 def insertRow(a, b, c, d):
     conn = dbconnect = sqlite3.connect('newdb1', detect_types=sqlite3.PARSE_DECLTYPES)
     c = conn.cursor()
-    c.execute( "INSERT INTO books (title, fname, lname, date) VALUES (?, ?, ?, ?);",(a, b, c, d))
+    c.execute( "INSERT INTO books (title, first_name, last_name, date) VALUES (?, ?, ?, ?);",(a, b, c, d))
     conn.commit()
     conn.close()
 
@@ -80,7 +87,7 @@ cat1 = tkinter.StringVar()
 
 
 
-tk.geometry('300x300')
+tk.geometry('300x350')
 
 tk.title('Book Inventory App')
 
@@ -90,7 +97,7 @@ label2 = tkinter.Label(tk, text='Author Last Name: ').grid(row=1, column=0)
 entry2 = tkinter.Entry(tk, textvariable=name2).grid(row=1, column=1)
 label3 = tkinter.Label(tk, text='Book Title: ').grid(row=2, column=0)
 entry3 = tkinter.Entry(tk, textvariable=title1).grid(row=2, column=1)
-text1 = tkinter.Label(tk, text='Categories:').grid(row=3, column=0)
+text1 = tkinter.Label(tk, text='Categories:').grid(row=3, column=1)
 label4 = tkinter.Label(tk, text='Trees and shrubs').grid(row=4, column=0)
 entry4 = tkinter.Radiobutton(tk, variable=cat1, value='ornamentals').grid(row=4, column=1)
 label5 = tkinter.Label(tk, text='Turf and Weeds').grid(row=5, column=0)
@@ -106,7 +113,7 @@ def submit():
 
     conn = sqlite3.connect('newdb1', detect_types=sqlite3.PARSE_DECLTYPES)
     c = conn.cursor()
-    c.execute("INSERT INTO books (title, fname, lname, cat) VALUES (?, ? ,?, ?);", (title1.get(), name1.get(), name2.get(), cat1.get()))
+    c.execute("INSERT INTO books (title, first_name, last_name, cat) VALUES (?, ? ,?, ?);", (title1.get(), name1.get(), name2.get(), cat1.get()))
     conn.commit()    
     conn.close()
     name1.set('')
@@ -118,7 +125,7 @@ def print_rows():
     conn = sqlite3.connect('newdb1', detect_types=sqlite3.PARSE_DECLTYPES)
     c = conn.cursor()
     backs = c.execute('''
-    SELECT rowid, title, fname, lname, cat FROM books
+    SELECT rowid, title, first_name, last_name, cat FROM books
     ''')
 
     for back in backs:
@@ -138,7 +145,8 @@ def panda_rows():
 btn1 = tkinter.Button(tk, command=submit, text='SUBMIT').grid(row=8, column=1)
 btn2 = tkinter.Button(tk, command=print_rows, text='PRINT ROWS').grid(row=9, column=1)
 btn3 = tkinter.Button(tk, command=panda_rows, text='PANDA ROWS').grid(row=10, column=1)
-# btn4 = tkinter.Button(tk, command=deleteRows, text='DELETE ROWS').grid(row=11, column=1)
+btn4 = tkinter.Button(tk, command=deleteRows, text='DELETE ROWS').grid(row=11, column=1)
+btn5 = tkinter.Button(tk, command=create_excel, text='TO EXCEL').grid(row=12, column=1)
 
 
 tk.mainloop()
