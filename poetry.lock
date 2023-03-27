@@ -30,6 +30,14 @@ python-versions = ">=3.7"
 frozenlist = ">=1.1.0"
 
 [[package]]
+name = "altgraph"
+version = "0.17.3"
+description = "Python graph (network) package"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "argon2-cffi"
 version = "21.3.0"
 description = "The secure Argon2 password hashing algorithm."
@@ -249,6 +257,17 @@ MarkupSafe = ">=2.0"
 i18n = ["Babel (>=2.7)"]
 
 [[package]]
+name = "macholib"
+version = "1.16.2"
+description = "Mach-O header analysis and editing"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+altgraph = ">=0.17"
+
+[[package]]
 name = "markupsafe"
 version = "2.1.2"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -337,6 +356,14 @@ build_docs = ["sphinx (>=1.6)", "sphinxcontrib-fulltoc (>=1.2.0)", "cloud-spthem
 totp = ["cryptography"]
 
 [[package]]
+name = "pefile"
+version = "2023.2.7"
+description = "Python PE parsing module"
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[[package]]
 name = "platformdirs"
 version = "2.6.2"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -391,6 +418,33 @@ description = "passive checker of Python programs"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
+
+[[package]]
+name = "pyinstaller"
+version = "5.9.0"
+description = "PyInstaller bundles a Python application and all its dependencies into a single package."
+category = "main"
+optional = false
+python-versions = "<3.12,>=3.7"
+
+[package.dependencies]
+altgraph = "*"
+macholib = {version = ">=1.8", markers = "sys_platform == \"darwin\""}
+pefile = {version = ">=2022.5.30", markers = "sys_platform == \"win32\""}
+pyinstaller-hooks-contrib = ">=2021.4"
+pywin32-ctypes = {version = ">=0.2.0", markers = "sys_platform == \"win32\""}
+
+[package.extras]
+encryption = ["tinyaes (>=1.0.0)"]
+hook_testing = ["pytest (>=2.7.3)", "execnet (>=1.5.0)", "psutil"]
+
+[[package]]
+name = "pyinstaller-hooks-contrib"
+version = "2023.1"
+description = "Community maintained hooks for PyInstaller"
+category = "main"
+optional = false
+python-versions = ">=3.7"
 
 [[package]]
 name = "pyseto"
@@ -457,6 +511,14 @@ validation = ["pydantic (>=1.7.4)"]
 name = "pytz"
 version = "2023.2"
 description = "World timezone definitions, modern and historical"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "pywin32-ctypes"
+version = "0.2.0"
+description = ""
 category = "main"
 optional = false
 python-versions = "*"
@@ -642,11 +704,12 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "eaaa963dd4289c4d47853146847620ca114880ead5e29758505766e75772e35e"
+content-hash = "194b88de51466990ab520cf37cf3694d25811759e085e1c1fa7368807d4b8650"
 
 [metadata.files]
 aiohttp = []
 aiosignal = []
+altgraph = []
 argon2-cffi = []
 argon2-cffi-bindings = []
 async-timeout = []
@@ -666,6 +729,7 @@ iso8601 = []
 itsdangerous = []
 jedi = []
 jinja2 = []
+macholib = []
 markupsafe = []
 multidict = []
 numpy = []
@@ -674,17 +738,21 @@ packaging = []
 pandas = []
 parso = []
 passlib = []
+pefile = []
 platformdirs = []
 pluggy = []
 protobuf = []
 pycparser = []
 pycryptodomex = []
 pyflakes = []
+pyinstaller = []
+pyinstaller-hooks-contrib = []
 pyseto = []
 python-dateutil = []
 python-lsp-jsonrpc = []
 pytoolconfig = []
 pytz = []
+pywin32-ctypes = []
 replit = []
 replit-python-lsp-server = []
 requests = []
