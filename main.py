@@ -19,11 +19,14 @@ createTable()
 
 buttoncolor = '#298E69'
 bgcolor = '#C4C8FF'
+entrywidth= 50
 
 tk = tkinter.Tk()
 tk.configure(bg=bgcolor)
 
 labelpad = 10
+button_pad = 25
+top_pad = 25
 
 catfont = font.Font(family='monospace', size=9)
 labelfont = font.Font(family='monospace', size=10, weight='bold')
@@ -37,19 +40,19 @@ year1 = tkinter.StringVar()
 deleteVar = tkinter.StringVar()
 deletewindowtitle = tkinter.StringVar()
 
-tk.geometry('420x450')
+tk.geometry('575x450')
 
 tk.title('Book Inventory App')
 
 label1 = tkinter.Label(tk, text='Author First Name: ', font=labelfont, bg=bgcolor).grid(row=0, column=0, padx=labelpad)
-entry1 = tkinter.Entry(tk, textvariable=name1).grid(row=0, column=1)
-label2 = tkinter.Label(tk, text='Author Last Name: ', font=labelfont, bg=bgcolor).grid(row=1, column=0, padx=labelpad)
-entry2 = tkinter.Entry(tk, textvariable=name2).grid(row=1, column=1)
+entry1 = tkinter.Entry(tk, textvariable=name1, width = entrywidth).grid(row=0, column=1)
+label2 = tkinter.Label(tk, text='Author Last Name or Organization: ', font=labelfont, bg=bgcolor).grid(row=1, column=0, padx=labelpad)
+entry2 = tkinter.Entry(tk, textvariable=name2, width = entrywidth).grid(row=1, column=1)
 label3 = tkinter.Label(tk, text='Book Title: ', font=labelfont, bg=bgcolor).grid(row=2, column=0, padx=labelpad)
-entry3 = tkinter.Entry(tk, textvariable=title1).grid(row=2, column=1)
+entry3 = tkinter.Entry(tk, textvariable=title1, width = entrywidth).grid(row=2, column=1)
 yearLabel = tkinter.Label(tk, text='Year Published: ', font=labelfont, bg=bgcolor).grid(row=3, column=0, padx=labelpad)
-yearEntry = tkinter.Entry(tk, textvariable=year1).grid(row=3, column=1)
-text1 = tkinter.Label(tk, text='Categories:', font=labelfont, bg=bgcolor).grid(row=4, column=1)
+yearEntry = tkinter.Entry(tk, textvariable=year1, width = entrywidth).grid(row=3, column=1)
+text1 = tkinter.Label(tk, text='Categories:', font=labelfont, bg=bgcolor).grid(row=4, column=1, sticky=tkinter.N+tkinter.W)
 label4 = tkinter.Label(tk, text='Trees & Shrubs', bg=bgcolor, font=catfont).grid(row=5, column=0, padx=labelpad)
 entry4 = tkinter.Radiobutton(tk, variable=cat1, value='ornamentals', bg=bgcolor).grid(row=5, column=1)
 label5 = tkinter.Label(tk, text='Turf & Weeds', bg=bgcolor, font=catfont).grid(row=6, column=0, padx=labelpad)
@@ -125,7 +128,7 @@ def editBook():
 
   editlabel1 = tkinter.Label(newwindow, text='Author First Name: ', font=labelfont, bg=bgcolor).grid(row=1, column=0, padx=labelpad)
   editentry1 = tkinter.Entry(newwindow, textvariable=authName).grid(row=1, column=1)
-  editlabel2 = tkinter.Label(newwindow, text='Author Last Name: ', font=labelfont, bg=bgcolor).grid(row=2, column=0, padx=labelpad)
+  editlabel2 = tkinter.Label(newwindow, text='Author Last Name or Organization: ', font=labelfont, bg=bgcolor).grid(row=2, column=0, padx=labelpad)
   editentry2 = tkinter.Entry(newwindow, textvariable=authLastName).grid(row=2, column=1)
   edityearLabel = tkinter.Label(newwindow, text='Year Published: ', font=labelfont, bg=bgcolor).grid(row=3, column=0, padx=labelpad)
   edityearEntry = tkinter.Entry(newwindow, textvariable=yearPub).grid(row=3, column=1)
@@ -151,7 +154,7 @@ def deleteWindow():
   newwindow.geometry('325x200')
 
   
-  deletewindow_label = tkinter.Label(newwindow, text='Book to Delete', font=labelfont, bg=bgcolor).grid(row=0, column=0, padx=labelpad, pady = 10)
+  deletewindow_label = tkinter.Label(newwindow, text='Book to Delete', font=labelfont, bg=bgcolor).grid(row=0, column=0, padx=labelpad)
   deletewindow_entry = tkinter.Entry(newwindow, textvariable= deletewindowtitle).grid(row=0, column=1)
   submit_delete = tkinter.Button(newwindow, command=askRow, text='DELETE BOOK', font=buttonFont, bg='red').grid(row=1, column = 1)
   close_window = tkinter.Button(newwindow, command=newwindow.destroy, text='CLOSE', font=buttonFont, bg='red').grid(row=1, column = 0)
@@ -167,13 +170,13 @@ def askRow():
 
 
 
-btn1 = tkinter.Button(tk, command=submit, text='SUBMIT', font=buttonFont, bg=buttoncolor, fg='white').grid(row=13, column=1)
-btn2 = tkinter.Button(tk, command=print_rows, text='PRINT CONSOLE', font=buttonFont, bg=buttoncolor, fg='white').grid(row=14, column=1)
-btn3 = tkinter.Button(tk, command=panda_rows, text='PANDAS ROWS', font=buttonFont, bg=buttoncolor, fg='white').grid(row=15, column=1)
-btn4 = tkinter.Button(tk, command=askQuestion, text='DELETE ALL BOOKS', font=buttonFont, bg='red').grid(row=16, column=0, padx=labelpad)
-btn5 = tkinter.Button(tk, command=askExcel, text='TO EXCEL', font=buttonFont, bg=buttoncolor, fg='white').grid(row=16, column=1)
-# btn6 = tkinter.Button(tk, command=askRow, text='DELETE BOOK', font=buttonFont, bg='red').grid(row=19, column = 1)
-btn6 = tkinter.Button(tk, command=deleteWindow, text='DELETE BOOK', font=buttonFont, bg='red').grid(row=14, column = 0)
-btn7 = tkinter.Button(tk, command=editBook, text='EDIT BOOK', font=buttonFont, bg='red').grid(row=15, column = 0)
+btn1 = tkinter.Button(tk, command=submit, text='SUBMIT', font=buttonFont, bg=buttoncolor, fg='white').grid(row=13, column=1, padx=labelpad, sticky=tkinter.N+tkinter.W)
+btn2 = tkinter.Button(tk, command=print_rows, text='PRINT CONSOLE', font=buttonFont, bg=buttoncolor, fg='white').grid(row=14, column=1, padx=labelpad, sticky=tkinter.N+tkinter.W)
+btn3 = tkinter.Button(tk, command=panda_rows, text='PANDAS ROWS', font=buttonFont, bg=buttoncolor, fg='white').grid(row=15, column=1, padx=labelpad, sticky=tkinter.N+tkinter.W)
+btn4 = tkinter.Button(tk, command=askQuestion, text='DELETE ALL BOOKS', font=buttonFont, bg='red').grid(row=16, column=0, padx=button_pad, sticky=tkinter.N+tkinter.W)
+btn5 = tkinter.Button(tk, command=askExcel, text='TO EXCEL', font=buttonFont, bg=buttoncolor, fg='white').grid(row=16, column=1, padx=labelpad, sticky=tkinter.N+tkinter.W)
+# btn6 = tkinter.Button(tk, command=askRow, text='DELETE BOOK', font=buttonFont, bg='red').grid(row=19, column = 1, sticky=tkinter.N+tkinter.W)
+btn6 = tkinter.Button(tk, command=deleteWindow, text='DELETE BOOK', font=buttonFont, bg='red').grid(row=14, column = 0, padx=button_pad, sticky=tkinter.N+tkinter.W)
+btn7 = tkinter.Button(tk, command=editBook, text='EDIT BOOK', font=buttonFont, bg='red').grid(row=15, column = 0, padx=button_pad, sticky=tkinter.N+tkinter.W)
 
 tk.mainloop()
